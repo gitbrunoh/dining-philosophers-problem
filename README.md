@@ -35,4 +35,6 @@ The number of forks is equal to the number of philosophers and each philosopher 
 
 There is another way to contain this **deadlock**. Reversing the priority of picking up the forks to the last philosopher is also an effective technique for avoiding deadlocks in the philosopher problem. But I used the first option.
 
-Our colleague Luís Miguel (intra: lleiria-) made a very nice animation to explain some of the logic of the problem. You can check it out here: https://www.youtube.com/watch?v=HbBYHRBJ47Q
+*** 
+
+*Our colleague Luís Miguel (intra: lleiria-) made a very nice animation to explain some of the logic of the problem. You can check it out here: https://www.youtube.com/watch?v=HbBYHRBJ47Q*
