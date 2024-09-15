@@ -35,13 +35,38 @@ Condition: Two or more threads simultaneously accessing a memory location AND on
 
 The number of forks is equal to the number of philosophers and each philosopher needs 2 forks to eat. So, if all the philosophers try to pick up the forks at the same time, there could be a deadlock situation. A **deadlock** occurs when each philosopher holds one fork and waits for the other, resulting in a situation where no philosopher can continue. To contain this, a usleep() is inserted into the execution of threads with odd ids.
 
-There is another way to contain this **deadlock**. Reversing the priority of picking up the forks to the last philosopher is also an effective technique for avoiding deadlocks in the philosopher problem. But I used the first option.
+The mutexes must be locked in order according to their indexes!
 
 In a **Livelock**, the threads or processes continue to change state and try to solve the problem, but make no useful progress.
 
 ### **Resource Starvation**
 
 **Resource Starvation** (or simply starvation) is a condition in computer systems where a thread or process is continually prevented from accessing the resources it needs to make progress, due to the prioritization of other threads or processes. This can occur in CPU scheduling systems, memory management, or any system where multiple entities compete for limited resources.
+
+## Testing
+To test the operation of threads and mutexes:
+1) fsanitize=thread in compilation.
+2) Do not use flags in the compilation and run valgrind with -tool=helgrind.
+
+***For the sanitization options to work properly, they need to be applied in both the compilation and linking phases.***
+
+# About this project
+
+In this code a philosopher picks up a fork that was previously in use only after the philosopher who was using it has gone to sleep. This makes it explicit in the state logs that no forks are being stolen.
+
+In this code, I've also avoided a very recurrent situation in the projects of many of my colleagues. Including one that I've been evaluating over the last few days. It goes like this. After printing the “died” state of a particular philosopher, the program subsequently prints more states for other philosophers. This is not supposed to be the case, as the game ends when a philosopher dies. By dealing with this problem, I ended up making my program better and more performant than it was before this improvement. 
+
+I believe it is plausible to require that there is no time inconsistency for the tests explicitly defined in the project's evaluation sheet. See this screenshot as an example of inconsistency.  
+  
+![philo_problem example of time inconsistency](example.png)
+
+In my program's start synchronization function, the usleep value used to avoid busy-waiting should be chosen based on the machine's processing capacity.
+
+One question I had was whether it was necessary for everyone to start the simulation thinking. Because the subject says that the philos are always eating, sleeping or thinking. So what is the state at the time the simulation starts? My colleagues' projects don't print the “is thinking” state before the first meal. So I decided to keep my implementation within the school's culture. And before the first meal, the state is not determined through the state prints.
+
+I've added -lptrhead to the compile line (it's a linking flag). Explicitly specifying the -lpthread flag in your Makefile is a good practice to ensure that your program compiles and links correctly in different environments and systems. 
+
+As a curiosity, have you noticed any paradoxes in this exercise? Yes, a philosopher can starve while eating. This happens if the time_to_die is less than the time_to_eat.
 
 *** 
 

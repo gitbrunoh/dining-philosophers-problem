@@ -4,6 +4,8 @@ NAME = philo
 
 CFLAGS = -Wall -Wextra -Werror -g -Iphilo
 
+LDFLAGS = -lpthread
+
 SRC = src/main.c \
 src/utils.c \
 src/utils2.c \
@@ -26,23 +28,11 @@ OBJ = $(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -o $(NAME) -lpthread
-
-sanitize_address_undefined: CFLAGS += -fsanitize=address -fsanitize=undefined
-sanitize_address_undefined: LDFLAGS += -fsanitize=address -fsanitize=undefined
-sanitize_address_undefined: fclean $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LDFLAGS)
 
 sanitize_thread: CFLAGS += -fsanitize=thread
 sanitize_thread: LDFLAGS += -fsanitize=thread
 sanitize_thread: fclean $(NAME)
-
-sanitize_integer: CFLAGS += -fsanitize=signed-integer-overflow
-sanitize_integer: LDFLAGS += -fsanitize=signed-integer-overflow
-sanitize_integer: fclean $(NAME)
-
-sanitize_bounds: CFLAGS += -fsanitize=bounds
-sanitize_bounds: LDFLAGS += -fsanitize=bounds
-sanitize_bounds: fclean $(NAME)
 
 clean: 
 	rm -f $(OBJ)

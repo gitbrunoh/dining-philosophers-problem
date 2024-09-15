@@ -6,7 +6,7 @@
 /*   By: brunhenr <brunhenr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 17:24:02 by brunhenr          #+#    #+#             */
-/*   Updated: 2024/09/14 19:50:00 by brunhenr         ###   ########.fr       */
+/*   Updated: 2024/09/15 16:54:18 by brunhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,16 @@ void	ft_pick_forks(t_keydata *keydata, t_philo *philo)
 	int	first_fork_id;
 	int	second_fork_id;
 
-	first_fork_id = philo->right_fork_id;
-	second_fork_id = philo->left_fork_id;
+	if (philo->id == keydata->nbr_philos - 1)
+	{
+		first_fork_id = philo->right_fork_id;
+		second_fork_id = philo->left_fork_id;
+	}
+	else 
+	{
+		first_fork_id = philo->left_fork_id;
+		second_fork_id = philo->right_fork_id;
+	}
 	pthread_mutex_lock(&keydata->forks[first_fork_id]);
 	usleep(450);
 	ft_print_fork(keydata, (*philo).id);
