@@ -6,7 +6,7 @@
 /*   By: brunhenr <brunhenr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 17:24:02 by brunhenr          #+#    #+#             */
-/*   Updated: 2024/09/15 16:54:18 by brunhenr         ###   ########.fr       */
+/*   Updated: 2024/09/15 17:39:50 by brunhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	ft_pick_forks(t_keydata *keydata, t_philo *philo)
 		first_fork_id = philo->right_fork_id;
 		second_fork_id = philo->left_fork_id;
 	}
-	else 
+	else
 	{
 		first_fork_id = philo->left_fork_id;
 		second_fork_id = philo->right_fork_id;
