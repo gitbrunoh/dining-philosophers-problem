@@ -21,7 +21,7 @@ void	ft_sleeping(t_keydata *keydata)
 	while (!(ft_get_died(keydata)))
 	{
 		remaining_time = keydata->time_to_sleep - (ft_get_time() - start_time);
-		if (remaining_time <= 0.9)
+		if (remaining_time <= 0)
 			break ;
 		usleep(20);
 	}
@@ -36,7 +36,7 @@ static void	ft_eating(t_keydata *keydata)
 	while (!ft_get_died(keydata))
 	{
 		remaining_time = keydata->time_to_eat - (ft_get_time() - start_time);
-		if (remaining_time <= 0.9)
+		if (remaining_time <= 0)
 			break ;
 		usleep(20);
 	}
